@@ -1,5 +1,3 @@
-t1 = '17:30'
-t2 = '12:50 am'
 
 def convert_time(time):
 	time_list = time.split()
@@ -13,4 +11,4 @@ def convert_time(time):
 		hour = int(hour)%12
 		return f'{hour}:{mint} {p}'
 
-print(convert_time(t1))
+print(convert_time('11:20'))
