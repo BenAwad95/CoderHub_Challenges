@@ -3,15 +3,14 @@ tens = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","nine
 teens = ["ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"]
 
 def numToEng(n):
-
-
+	out = ''
 	# singles case
 	if 0 <= n <= 9:
-		return singles[n]
+		out = singles[n]
 
 	# teens case
 	if 10 <= n <= 19:
-		return teens[n%10]
+		out = teens[n%10]
 
 	# tens case
 	if 20 <= n <= 99:
@@ -19,26 +18,21 @@ def numToEng(n):
 		ns = str(n)
 		fisrt_part = tens[int(ns[0])]
 		if ns[1] == '0':
-			return fisrt_part
-		second_part = singles[int(ns[1])]
-		return f"{fisrt_part}-{second_part}"	
+			out = fisrt_part
+		else:
+			second_part = singles[int(ns[1])]
+			out = f"{fisrt_part}-{second_part}"	
 
 	# hundred and up to 999
 	if 100 <= n <= 999:
 		ns = str(n)
 		fisrt_part = singles[int(ns[0])]
 		if ns[1:] == '00':
-			return f"{fisrt_part} hundred"
-		if 1 <= int(ns[1:]) <= 9:
+			out = f"{fisrt_part} hundred"
+		else:
 			second_part = singles[int(ns[-1])]
-			return f"{fisrt_part} hundred {second_part}"
-		if 10 <= int(ns[1:]) <= 19:
-			second_part = teens[int(ns[1:])%10]
-			return f"{fisrt_part} hundred {second_part}"
-		if 20 <= int(ns[1:]) <= 99:
-			second_part = tens[int(ns[1])]
-			third_part = singles[int(ns[2])]
-			return f"{fisrt_part} hundred {second_part}-{third_part}"
+			out = f"{fisrt_part} hundred {numToEng(int(ns[1:]))}"
+	return out.strip()
 
 
 # print(numToEng(202))
@@ -89,7 +83,7 @@ def int_to_en(num):
 
 import inflect
 p = inflect.engine()
-n=64
-print(int_to_en(n))
-print(numToEng(n))
-print(p.number_to_words(n))
+n=999
+
+print(numToEng(50))
+print(int_to_en(555))
